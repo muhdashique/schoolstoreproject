@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/form.css' %}">
+</head>
+<body>
+    <form class="submission-form" action="msg">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="dob">DOB:</label>
+        <input type="date" id="dob" name="dob" required><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea><br>
+
+        <label for="department">Department:</label>
+        <select id="department" name="department" onchange="loadCourses()">
+            <option value="computer_science">Science</option>
+            <option value="commerce">Commerce</option>
+             <option value="Arts">Arts</option>
+            <!-- Add more departments -->
+        </select><br>
+
+        <label for="course">Courses:</label>
+        <select id="course" name="course" disabled>
+            <option value="" selected>Please select a department first</option>
+        </select><br>
+
+        <label for="purpose">Purpose:</label>
+        <select id="purpose" name="purpose">
+            <option value="enquiry">For Enquiry</option>
+            <option value="place_order">Place Order</option>
+            <option value="return">Return</option>
+        </select><br>
+
+        <label>Materials Provided:</label><br>
+        <input type="checkbox" id="notebook" name="materials" value="notebook">
+        <label for="notebook">Debit Note Book</label><br>
+
+        <input type="checkbox" id="pen" name="materials" value="pen">
+        <label for="pen">Pen</label><br>
+
+        <input type="checkbox" id="papers" name="materials" value="papers">
+        <label for="papers">Exam Papers</label><br>
+
+        <button type="submit">Submit</button>
+        <a href="home">logout</a>
+    </form>
+
+    <script>
+function loadCourses() {
+    const departmentSelect = document.getElementById('department');
+    const courseSelect = document.getElementById('course');
+
+    const selectedDepartment = departmentSelect.value;
+
+    // Clear previous options
+    courseSelect.innerHTML = '<option value="" selected>Please select a course</option>';
+
+    if (selectedDepartment === 'computer_science') {
+        // Populate Computer Science courses
+        const computerScienceCourses = ['Course A', 'Course B', 'Course C'];
+        computerScienceCourses.forEach(course => {
+            const option = document.createElement('option');
+            option.value = course.toLowerCase().replace(/\s/g, '_');
+            option.textContent = course;
+            courseSelect.appendChild(option);
+        });
+    } else if (selectedDepartment === 'commerce') {
+        // Populate Commerce courses
+        const commerceCourses = ['BBA', 'BCom', 'Course D'];
+        commerceCourses.forEach(course => {
+            const option = document.createElement('option');
+            option.value = course.toLowerCase().replace(/\s/g, '_');
+            option.textContent = course;
+            courseSelect.appendChild(option);
+        });
+    }
+
+    courseSelect.disabled = false; // Enable the course dropdown
+}
+
+document.querySelector('.order-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    // You can handle form submission here
+    alert('Order Confirmed');
+});
+
+</script>
+
+</body>
+
+</html>
